@@ -8,10 +8,40 @@ mod_mech_compare_ui <- function(id) {
         sliderInput(ns("top_n_pt"), "Number of PTs in heatmap", min = 20, max = 80, value = 50, step = 10)
       ),
       mainPanel(
-        tabsetPanel(
-          tabPanel("Heatmap", plotOutput(ns("heatmap_plot"), height = "600px")),
-          tabPanel("Top AE", plotOutput(ns("top_ae_plot"), height = "600px")),
-          tabPanel("PRR / ROR", tableOutput(ns("prr_table")))
+      tabsetPanel(
+        tabPanel("Heatmap", plotOutput(ns("heatmap_plot"), height = "600px")),
+        tabPanel("Top AE", plotOutput(ns("top_ae_plot"), height = "600px")),
+        tabPanel("PRR / ROR",
+                 tableOutput(ns("prr_table")),
+                 br(),
+                 h4("PRR/ROR 2x2 table definition"),
+                 tags$p("a = reports in the selected mechanism class that include this PT"),
+                 tags$p("b = reports in the selected mechanism class that do not include this PT"),
+                 tags$p("c = reports in all other mechanism classes that include this PT"),
+                 tags$p("d = reports in all other mechanism classes that do not include this PT"),
+                 tags$table(
+                   class = "table table-bordered table-condensed",
+                   tags$thead(
+                     tags$tr(
+                       tags$th(""),
+                       tags$th("PT reported"),
+                       tags$th("PT not reported")
+                     )
+                   ),
+                   tags$tbody(
+                     tags$tr(
+                       tags$td("Selected mechanism class"),
+                       tags$td("a"),
+                       tags$td("b")
+                     ),
+                     tags$tr(
+                       tags$td("All other classes"),
+                       tags$td("c"),
+                       tags$td("d")
+                     )
+                   )
+                 )
+        )
         )
       )
     )

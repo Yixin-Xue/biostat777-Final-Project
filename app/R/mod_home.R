@@ -27,6 +27,42 @@ mod_home_ui <- function(id) {
           tags$li("Mechanism Comparison: Which PTs/SOCs dominate each mechanism, and where are disproportional signals (PRR/ROR)?"),
           tags$li("Drug Profiles: For each drug, what are the top events, SOC mix, and serious outcome patterns?"),
           tags$li("Temporal Signals: Do time-series models flag emerging signals for top drugs?")
+        ),
+        tags$details(
+          class = "methods-section",
+          tags$summary("Glossary of Terms & Abbreviations", style = "color:#002D72; font-weight:700;"),
+          tags$table(
+            class = "table table-striped table-condensed",
+            style = "table-layout: fixed; width: 100%;",
+            tags$colgroup(
+              tags$col(style = "width:15%;"),
+              tags$col(style = "width:25%;"),
+              tags$col(style = "width:60%;")
+            ),
+            tags$thead(
+              tags$tr(
+                tags$th("Abbreviation"),
+                tags$th("Full Term"),
+                tags$th("Description")
+              )
+            ),
+            tags$tbody(
+              tags$tr(tags$td("FAERS"), tags$td("FDA Adverse Event Reporting System"), tags$td("U.S. post-marketing surveillance database collecting spontaneous adverse drug event reports.")),
+              tags$tr(tags$td("T2DM"), tags$td("Type 2 Diabetes Mellitus"), tags$td("A chronic metabolic disease characterized by impaired glucose regulation due to insulin resistance and/or insufficient insulin secretion.")),
+              tags$tr(tags$td("AE"), tags$td("Adverse Event"), tags$td("Any unfavorable or unintended medical occurrence reported after drug exposure.")),
+              tags$tr(tags$td("PT"), tags$td("Preferred Term"), tags$td("Standardized MedDRA term describing a specific adverse event (e.g., nausea, headache).")),
+              tags$tr(tags$td("SOC"), tags$td("System Organ Class"), tags$td("High-level MedDRA category grouping adverse events by affected organ system.")),
+              tags$tr(tags$td("MedDRA"), tags$td("Medical Dictionary for Regulatory Activities"), tags$td("International terminology used to code adverse events in FAERS.")),
+              tags$tr(tags$td("RxNorm"), tags$td("RxNorm Drug Vocabulary"), tags$td("Standardized drug nomenclature used for drug name normalization.")),
+              tags$tr(tags$td("ATC"), tags$td("Anatomical Therapeutic Chemical Classification"), tags$td("WHO system organizing drugs by therapeutic use and mechanism.")),
+              tags$tr(tags$td("PRR"), tags$td("Proportional Reporting Ratio"), tags$td("Disproportionality metric comparing AE reporting frequency for a drug vs all others.")),
+              tags$tr(tags$td("ROR"), tags$td("Reporting Odds Ratio"), tags$td("Disproportionality measure of odds of reporting a specific AE for a drug relative to others.")),
+              tags$tr(tags$td("ARIMA"), tags$td("AutoRegressive Integrated Moving Average"), tags$td("Classical time-series model for analyzing and forecasting counts.")),
+              tags$tr(tags$td("XGBoost"), tags$td("Extreme Gradient Boosting"), tags$td("Gradient-boosted decision tree algorithm for predictive modeling.")),
+              tags$tr(tags$td("RF"), tags$td("Random Forest"), tags$td("Ensemble of decision trees for robust prediction.")),
+              tags$tr(tags$td("ENet"), tags$td("Elastic Net Regression"), tags$td("Regularized regression combining L1 and L2 penalties for correlated predictors."))
+            )
+          )
         )
       ),
       column(
