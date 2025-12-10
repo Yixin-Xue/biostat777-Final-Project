@@ -58,8 +58,8 @@ mod_mech_compare_server <- function(id, con) {
       ggplot2::ggplot(df, ggplot2::aes(x = mech_class, y = pt, fill = prop)) +
         ggplot2::geom_tile() +
         ggplot2::scale_fill_gradient(low = "white", high = "red", na.value = "grey90") +
-        ggplot2::labs(x = "Mechanism class", y = "Preferred Term (PT)", fill = "Proportion") +
-        ggplot2::theme_minimal() +
+        ggplot2::labs(x = "Mechanism class", y = "Preferred Term (PT)", fill = "Proportion", title = "PT heatmap by mechanism", subtitle = "Scaled within mechanism") +
+        ggplot2::theme_minimal() + center_titles +
         ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
                        axis.text.y = ggplot2::element_text(size = 7))
     })
@@ -72,8 +72,8 @@ mod_mech_compare_server <- function(id, con) {
       ggplot2::ggplot(df, ggplot2::aes(x = reorder(pt, n_events), y = n_events)) +
         ggplot2::geom_col(fill = "#0ABAB5") +
         ggplot2::coord_flip() +
-        ggplot2::labs(x = "Preferred Term (PT)", y = "Count", title = paste("Top 20 AEs for", input$mech)) +
-        ggplot2::theme_minimal()
+        ggplot2::labs(x = "Preferred Term (PT)", y = "Count", title = paste("Top 20 AEs for", input$mech), subtitle = "Counts within selected mechanism") +
+        ggplot2::theme_minimal() + center_titles
     })
 
     # PRR / ROR table

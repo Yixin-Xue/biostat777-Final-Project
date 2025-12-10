@@ -16,8 +16,8 @@ mod_home_ui <- function(id) {
       column(
         width = 7,
         h2("Safety and Adverse Event Characterization of Type 2 Diabetes Treatments", class = "hero-title"),
-        h4("A comparative pharmacovigilance analysis of FAERS (2019–2021) across 16 T2DM drugs in 6 mechanisms", class = "hero-subtitle"),
-        p("Type 2 diabetes requires long-term treatment with multiple drug classes, each with distinct mechanisms and adverse event profiles. The FDA’s FAERS database contains millions of real-world safety reports linking patient demographics, drug exposures, and MedDRA-coded clinical events. As newer agents (e.g., GLP-1 receptor agonists, SGLT2 inhibitors, GIP/GLP-1 agonists) are used alongside older therapies such as metformin, DPP-4 inhibitors, and basal insulin, the safety landscape has become increasingly complex. This dashboard provides a unified view of FAERS data to help clinicians and researchers explore and compare adverse event patterns across commonly used T2DM treatments.", class = "hero-body"),
+        h4("A comparative pharmacovigilance analysis of FAERS (2019–2021) across 15 T2DM drugs in 5 mechanisms", class = "hero-subtitle"),
+        p("Type 2 diabetes requires long-term treatment with multiple drug classes, each with distinct mechanisms and adverse event profiles. The FDA’s FAERS database contains millions of real-world safety reports linking patient demographics, drug exposures, and MedDRA-coded clinical events. As newer agents (e.g., GLP-1 receptor agonists, SGLT2 inhibitors) are used alongside older therapies such as metformin, DPP-4 inhibitors, and basal insulin, the safety landscape has become increasingly complex. This dashboard provides a unified view of FAERS data to help clinicians and researchers explore and compare adverse event patterns across commonly used T2DM treatments.", class = "hero-body"),
         h4("Team", class = "hero-subtitle"),
         p("Team name: Jet 2 Holiday"),
         p("Members: Jiayi Chu, Yixin Xue, Shuya Guo, Runjiu Chen"),
@@ -43,8 +43,8 @@ mod_home_ui <- function(id) {
       column(3, div(class = "metric-card", p(class = "metric-title", "Drug–event records"), p(class = "metric-value", "≈17.6M")))
     ),
     fluidRow(
-      column(3, div(class = "metric-card", p(class = "metric-title", "Target drugs"), p(class = "metric-value", "16"))),
-      column(3, div(class = "metric-card", p(class = "metric-title", "Mechanism classes"), p(class = "metric-value", "6"))),
+      column(3, div(class = "metric-card", p(class = "metric-title", "Target drugs"), p(class = "metric-value", "15"))),
+      column(3, div(class = "metric-card", p(class = "metric-title", "Mechanism classes"), p(class = "metric-value", "5"))),
       column(6, div(class = "metric-card", p(class = "metric-title", "Database"), p(class = "metric-value", "faers.sqlite")))
     ),
     hr(),
@@ -64,21 +64,37 @@ mod_home_ui <- function(id) {
         tags$strong("Incretins / SGLT2"),
         tags$ul(
           tags$li("GLP-1 RA: Semaglutide, Liraglutide, Dulaglutide, Exenatide"),
-          tags$li("GIP/GLP-1: Tirzepatide"),
           tags$li("SGLT2: Empagliflozin, Dapagliflozin, Canagliflozin, Ertugliflozin")
         )
       )
     ),
     hr(),
-    h4("Pipeline overview"),
-    tags$ol(
-      tags$li("FAERS raw data download (2019–2021)"),
-      tags$li("Cleaning & de-duplication"),
-      tags$li("Drug name normalization (RxNorm)"),
-      tags$li("PT → pseudo SOC mapping"),
-      tags$li("ATC & mechanism classification"),
-      tags$li("Case-level cohort construction"),
-      tags$li("Analysis-ready dataset (cohort_analytic)")
+    fluidRow(
+      column(
+        6,
+        h4("Data Cleaning Pipeline"),
+        tags$ul(
+          tags$li("FAERS raw data download (2019–2021)"),
+          tags$li("Data cleaning and case de-duplication"),
+          tags$li("Drug name normalization using RxNorm"),
+          tags$li("Adverse event PT → pre-defined SOC mapping"),
+          tags$li("ATC code and mechanistic class classification"),
+          tags$li("Case-level cohort construction"),
+          tags$li("Analysis-ready dataset (cohort_analytic)")
+        )
+      ),
+      column(
+        6,
+        h4("Dashboard Overview"),
+        tags$ul(style = "padding-left:18px;",
+          tags$li("Home / Overview: background, data source, workflow summary, team"),
+          tags$li("Global Trends: overall AE volume and serious vs non-serious distributions"),
+          tags$li("Mechanism Comparison: cross-mechanism AE patterns (PT/SOC) and PRR/ROR signals"),
+          tags$li("Individual Drug Profiles: per-drug trends, SOC mix, serious outcomes, top PT"),
+          tags$li("Temporal & Emerging Signals: quarterly trends with ARIMA/XGBoost/RF/ENet forecasts"),
+          tags$li("Methods & Limitations: pipeline documentation, paradigms, scope/limits")
+        )
+      )
     ),
     hr(),
     h4("Notes"),

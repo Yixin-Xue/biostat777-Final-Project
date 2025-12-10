@@ -47,7 +47,7 @@ ui <- tagList(
     tabPanel("Mechanism Comparison", mod_mech_compare_ui("mech")),
     tabPanel("Drug Profiles", mod_drug_profiles_ui("drug")),
     tabPanel("Temporal Signals", mod_temporal_signals_ui("ts")),
-    tabPanel("Methods & Downloads", mod_methods_ui("methods"))
+    tabPanel("Methods & Limitations", mod_methods_ui("methods"))
   )
 )
 

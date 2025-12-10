@@ -237,37 +237,42 @@ mod_temporal_signals_server <- function(id, con) {
         dplyr::arrange(year, quarter) |>
         dplyr::mutate(year_quarter = factor(year_quarter, levels = unique(year_quarter)))
 
-      p <- ggplot2::ggplot()
-      # Observed
-      df_obs <- dplyr::filter(df_all, kind == "Observed")
-      p <- p +
-        ggplot2::geom_line(data = df_obs, ggplot2::aes(x = year_quarter, y = value, group = 1),
-                           color = col_obs, linewidth = 1.8) +
-        ggplot2::geom_point(data = df_obs, ggplot2::aes(x = year_quarter, y = value),
-                            color = col_obs, size = 3)
+      model_levels <- c("Observed", "ARIMA", "XGBoost", "RF", "ENet")
+      df_plot <- df_all |>
+        dplyr::mutate(model = factor(model, levels = model_levels))
 
-      add_model <- function(df, col, linetype) {
-        if (nrow(df) > 0) {
-          p <<- p +
-            ggplot2::geom_line(data = df, ggplot2::aes(x = year_quarter, y = value, group = 1),
-                               color = col, linewidth = 1.6, linetype = linetype) +
-            ggplot2::geom_point(data = df, ggplot2::aes(x = year_quarter, y = value),
-                                color = col, size = 3)
-        }
-      }
-
-      add_model(dplyr::filter(df_all, kind == "Forecast", model == "ARIMA"), col_arima, "dashed")
-      add_model(dplyr::filter(df_all, kind == "Forecast", model == "XGBoost"), col_xgb, "dotdash")
-      add_model(dplyr::filter(df_all, kind == "Forecast", model == "RF"), col_rf, "longdash")
-      add_model(dplyr::filter(df_all, kind == "Forecast", model == "ENet"), col_en, "dotted")
-
-      p +
+      ggplot2::ggplot(df_plot, ggplot2::aes(x = year_quarter, y = value, group = model, color = model, linetype = model)) +
+        ggplot2::geom_line(linewidth = 1.3) +
+        ggplot2::geom_point(size = 2.5) +
+        ggplot2::scale_color_manual(
+          values = c(
+            "Observed" = col_obs,
+            "ARIMA"    = col_arima,
+            "XGBoost"  = col_xgb,
+            "RF"       = col_rf,
+            "ENet"     = col_en
+          ),
+          drop = TRUE
+        ) +
+        ggplot2::scale_linetype_manual(
+          values = c(
+            "Observed" = "solid",
+            "ARIMA"    = "dashed",
+            "XGBoost"  = "dotdash",
+            "RF"       = "longdash",
+            "ENet"     = "dotted"
+          ),
+          drop = TRUE
+        ) +
         ggplot2::labs(
           x = "Year-Quarter",
           y = "Number of reports",
-          title = paste("Quarterly AE reports for", drug)
+          title = paste("Quarterly AE reports for", drug),
+          subtitle = "Observed vs model forecasts",
+          color = "Series",
+          linetype = "Series"
         ) +
-        ggplot2::theme_minimal(base_size = 13) +
+        ggplot2::theme_minimal(base_size = 13) + center_titles +
         ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
     })
 

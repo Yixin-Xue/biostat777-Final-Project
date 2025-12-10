@@ -291,6 +291,7 @@ get_mech_event_counts <- function(con) {
            COUNT(*) AS n_events
     FROM cohort_analytic
     WHERE mech_class_final IS NOT NULL
+      AND mech_class_final <> 'GIP_GLP1'
     GROUP BY mech_class_final
     ORDER BY n_events DESC
   ")

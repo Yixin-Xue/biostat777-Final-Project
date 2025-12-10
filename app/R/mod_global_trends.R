@@ -47,8 +47,8 @@ mod_global_trends_server <- function(id, con) {
       ggplot2::ggplot(df, ggplot2::aes(x = period, y = n_cases, group = 1)) +
         ggplot2::geom_line(color = "#2C3E50") +
         ggplot2::geom_point(color = "#2C3E50") +
-        ggplot2::labs(x = "Quarter", y = "Cases", title = "Quarterly AE reports") +
-        ggplot2::theme_minimal() +
+        ggplot2::labs(x = "Quarter", y = "Cases", title = "Quarterly AE reports", subtitle = "FAERS 2019–2021") +
+        ggplot2::theme_minimal() + center_titles +
         ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1))
     })
 
@@ -66,8 +66,8 @@ mod_global_trends_server <- function(id, con) {
         ggplot2::geom_line(ggplot2::aes(y = non_serious, color = "Non-serious"), group = 1) +
         ggplot2::geom_point(ggplot2::aes(y = non_serious, color = "Non-serious")) +
         ggplot2::scale_color_manual(values = c("Serious" = "#e74c3c", "Non-serious" = "#3498db")) +
-        ggplot2::labs(x = "Quarter", y = "Cases", color = NULL, title = "Serious vs non-serious by quarter") +
-        ggplot2::theme_minimal() +
+        ggplot2::labs(x = "Quarter", y = "Cases", color = NULL, title = "Serious vs non-serious by quarter", subtitle = "FAERS 2019–2021") +
+        ggplot2::theme_minimal() + center_titles +
         ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
                        legend.position = "top")
     })
@@ -78,8 +78,8 @@ mod_global_trends_server <- function(id, con) {
       req(nrow(df) > 0)
       ggplot2::ggplot(df, ggplot2::aes(x = n_events, y = reorder(mech_class, n_events))) +
         ggplot2::geom_col(fill = "#2980b9") +
-        ggplot2::labs(x = "Number of events", y = "Mechanism", title = "Event counts by mechanism") +
-        ggplot2::theme_minimal()
+        ggplot2::labs(x = "Number of events", y = "Mechanism", title = "Event counts by mechanism", subtitle = "FAERS 2019–2021") +
+        ggplot2::theme_minimal() + center_titles
     })
 
     # Top pseudo SOC
@@ -88,8 +88,8 @@ mod_global_trends_server <- function(id, con) {
       req(nrow(df) > 0)
       ggplot2::ggplot(df, ggplot2::aes(x = n_events, y = reorder(pseudo_soc, n_events))) +
         ggplot2::geom_col(fill = "#16a085") +
-        ggplot2::labs(x = "Number of events", y = "Pseudo SOC", title = "Top 15 pseudo SOC") +
-        ggplot2::theme_minimal()
+        ggplot2::labs(x = "Number of events", y = "Pseudo SOC", title = "Top 15 pseudo SOC", subtitle = "FAERS 2019–2021") +
+        ggplot2::theme_minimal() + center_titles
     })
   })
 }
