@@ -5,13 +5,11 @@ Project workspace for FAERS T2DM safety pipeline and Shiny dashboard.
 ## Required data at a glance
 - `shared_data/faers.sqlite`: main SQLite database (download from Google Drive: https://drive.google.com/file/d/1At-ARdrPf8VsUB_02KgnnJ7bYRZ-mXGN/view?usp=drive_link; place into `shared_data/`).
 - `shared_data/pseudo_soc_map_top.csv`: PT → pseudo SOC mapping (tracked in repo).
-- `shared_data/temporal_cache.rds`: precomputed temporal forecasts cache (tracked in repo; optional but speeds up the Temporal tab).
 
 ## Contents
-- `shared_data/`: three required data files for running the app:
+- `shared_data/`: two required data files for running the app:
   - `faers.sqlite` (download from Google Drive: https://drive.google.com/file/d/1At-ARdrPf8VsUB_02KgnnJ7bYRZ-mXGN/view?usp=drive_link)
   - `pseudo_soc_map_top.csv`
-  - `temporal_cache.rds`
 - `scripts/`: data pipeline scripts (`download_faers.R`, `step1`–`step11`, `check-cohort.R`).
 - `app/`: Shiny dashboard scaffold (6 pages).
   - `app.R`: entrypoint, connects to `../data/faers.sqlite` by default (override with `FAERS_DB_PATH`).
@@ -49,8 +47,7 @@ biostat777-Final-Project/
 ├─ README.md                 # Project overview and run instructions
 ├─ shared_data/              # Required runtime data (small + DB download)
 │  ├─ faers.sqlite           # Main SQLite database (download from Google Drive link)
-│  ├─ pseudo_soc_map_top.csv # PT → pseudo SOC mapping (tracked)
-│  └─ temporal_cache.rds     # Precomputed temporal forecasts cache (tracked)
+│  └─ pseudo_soc_map_top.csv # PT → pseudo SOC mapping (tracked)
 ├─ scripts/                  # Data pipeline scripts
 │  ├─ download_faers.R
 │  ├─ step1-clean-names.R
